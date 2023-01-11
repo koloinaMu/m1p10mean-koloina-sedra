@@ -7,10 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InscriptionComponent implements OnInit {
 
-  test : Date = new Date();
-  focus;
-  focus1;
-  focus2;
   constructor() { }
 
   ngOnInit(): void {
