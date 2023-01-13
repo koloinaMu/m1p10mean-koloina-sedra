@@ -1,20 +1,22 @@
-var express=require("express");
-var app=express();
-var url=require("url");
-var cors=require('cors');
-app.use(cors());
+const path = require("path");
+const express = require("express")
+const mongoose = require("mongoose")
+const db = require("./db/db")
+const postRouter = require("./Routes/post");
+var bodyParser = require('body-parser');
+const cors = require('cors');
 
-app.get('/',function (req,res) {
-	console.log("let's see");
-	res.send("Hello angular it node");
-});
-/*
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-*/
-app.listen(3000,function () {
-	console.log("start app");
-});
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+   extended: false
+}));
+
+
+app.use(cors());
+const PORT = process.env.PORT || 3000
+app.use("/api/posts", postRouter)
+app.listen(PORT, (req, res) => {
+console.log(`app is listening to PORT ${PORT}`)
+})

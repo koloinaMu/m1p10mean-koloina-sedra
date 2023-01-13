@@ -1,0 +1,5 @@
+db.utilisateur.insertOne({nom: "user1",prenom: "prenom1",mail: "user1@gmail.com",motdepasse: "1111",type: "utilisateur simple",voiture: "4*4 Toyota"})
+db.utilisateur.insertOne({nom: "user2",prenom: "prenom2",mail: "user2@gmail.com",motdepasse: "2222",type: "utilisateur simple",voiture: "4*4 Range Rover"})
+  
+
+
