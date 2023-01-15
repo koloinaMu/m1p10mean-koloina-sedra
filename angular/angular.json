@@ -34,7 +34,7 @@
           },
           "configurations": {
             "production": {
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -65,6 +65,7 @@
           },
           "configurations": {
             "production": {
+              "optimization":false,
               "browserTarget": "now-ui-dashboard-angular:build:production"
             },
             "development": {

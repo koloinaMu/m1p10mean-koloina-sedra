@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { LoginComponent } from './login/login.component';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+//import { UtilisateurService } from './services/utilisateur/utilisateur.service';
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { LoginComponent } from './login/login.component';
     RouterModule,
     AppRoutingModule,
     NgbModule,
+    NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -33,7 +36,9 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
 
   ],
-  providers: [],
+  providers: [
+    //UtilisateurService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

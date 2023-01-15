@@ -11,36 +11,41 @@ class Utilisateur{
 }*/
 var MongoClient=mongo.MongoClient;
 function insert(utilisateur) {
-	var reponse=0;
+	var reponse=null;
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  utilisateur.mdp=md5(utilisateur.mdp);
-	  dbo.collection("SuperAdmin").insertOne(utilisateur, function(err, res) {
+	  reponse= dbo.collection("SuperAdmin").insertOne(utilisateur, function(err, res) {
 	    if (err) throw err;
 	    //console.log(utilisateur);
 	    //console.log("1 document inserted");
-	    reponse=1;
+	    reponse=utilisateur;
 	    db.close();
 	  });
 	}); 
 	return reponse;
 }	
 
-function connect(utilisateur) {
-	var reponse=0;
+async function connect(utilisateur) {
+	let reponse=null;
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  //console.log(utilisateur);
 	  var query={mail:utilisateur.mail,mdp:md5(utilisateur.mdp)};
-	  dbo.collection("SuperAdmin").findOne(query, function(err, res) {
-	    if (err) throw err;
-	    console.log(res);
-	    reponse=1;
+	  reponse= dbo.collection("SuperAdmin").findOne(query, async function(err, res) {
+	    if (err){
+	    	reponse=null;
+	    	//return null;
+	    	//throw err;
+	    } 
 	    db.close();
+	    reponse=JSON.stringify(res);
+	    //return JSON.stringify(res);
 	  });
 	}); 
+	return reponse;
 }	
 
 

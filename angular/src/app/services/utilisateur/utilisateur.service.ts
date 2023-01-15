@@ -16,7 +16,7 @@ export class UtilisateurService {
   }
 
   connecter(utilisateur) {
-    console.log(utilisateur);
+   // console.log(utilisateur);
     return this.http.post(baseUrl+'connexion',utilisateur,{responseType:'text'});
   }
 }

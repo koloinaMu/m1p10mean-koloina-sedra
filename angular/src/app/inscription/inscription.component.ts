@@ -3,12 +3,14 @@ import {Utilisateur} from '../objets/utilisateur';
 import {UtilisateurService} from '../services/utilisateur/utilisateur.service';
 import { HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.scss']
+  //providers:[UtilisateurService]
 })
 export class InscriptionComponent implements OnInit {
 
@@ -18,7 +20,8 @@ export class InscriptionComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private utilisateurService:UtilisateurService) {    
+    private utilisateurService:UtilisateurService,
+    private localStorage:LocalStorageService) {    
   }
 
   ngOnInit(): void {
@@ -55,6 +58,7 @@ export class InscriptionComponent implements OnInit {
       (response: any) =>{
        // console.log("REUSSI");
        // console.log(response);       
+       localStorage.setItem('utilisateur', JSON.stringify(response));
        this.router.navigate(['/dashboard']);
       },
       (error: HttpErrorResponse) => {
