@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    LoginComponent
 
   ],
   providers: [],

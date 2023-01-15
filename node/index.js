@@ -22,8 +22,16 @@ app.get('/',function (req,res) {
 app.post('/inscription',jsonParser,function (req,res) {
 //	var utilisateur=new Utilisateur("kolo","kolo");
 	var utilisateur=req.body;
-	Utilisateur.insert(utilisateur);
-	res.send("envoyee");
+	var reponse=Utilisateur.insert(utilisateur);
+	res.send(reponse);
+});
+
+app.post('/connexion',jsonParser,function (req,res) {
+//	var utilisateur=new Utilisateur("kolo","kolo");
+	var utilisateur=req.body;
+	//console.log(utilisateur);
+	var reponse=Utilisateur.connect(utilisateur);
+	res.send(reponse);
 })
 
 /*

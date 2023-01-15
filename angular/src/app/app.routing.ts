@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes =[
   {
@@ -14,6 +15,11 @@ const routes: Routes =[
   }, {
     path: 'inscription',
     component: InscriptionComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'connexion',
+    component: LoginComponent,
     pathMatch: 'full',
   }, {
     path: '',

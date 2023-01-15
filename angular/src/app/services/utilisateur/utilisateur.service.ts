@@ -14,4 +14,9 @@ export class UtilisateurService {
     //console.log("INSERT essai");
     return this.http.post(baseUrl+'inscription',utilisateur,{responseType:'text'});
   }
+
+  connecter(utilisateur) {
+    console.log(utilisateur);
+    return this.http.post(baseUrl+'connexion',utilisateur,{responseType:'text'});
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Utilisateur} from '../objets/utilisateur';
 import {UtilisateurService} from '../services/utilisateur/utilisateur.service';
 import { HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-inscription',
@@ -14,7 +16,9 @@ export class InscriptionComponent implements OnInit {
   selectedOption:string;
   utilisateur:Utilisateur;
 
-  constructor(private utilisateurService:UtilisateurService) {    
+  constructor(
+    private router: Router,
+    private utilisateurService:UtilisateurService) {    
   }
 
   ngOnInit(): void {
@@ -50,7 +54,8 @@ export class InscriptionComponent implements OnInit {
     this.utilisateurService.insert(this.utilisateur).subscribe(
       (response: any) =>{
        // console.log("REUSSI");
-       // console.log(response);
+       // console.log(response);       
+       this.router.navigate(['/dashboard']);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
