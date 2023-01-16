@@ -44,6 +44,7 @@ export class InscriptionComponent implements OnInit {
         immatriculation:'',
         couleur:''
       },
+      type:0
     }
   }
 
@@ -55,10 +56,10 @@ export class InscriptionComponent implements OnInit {
   inscrire(){
     console.log(this.utilisateur);
     this.utilisateurService.insert(this.utilisateur).subscribe(
-      (response: any) =>{
-       // console.log("REUSSI");
-       // console.log(response);       
-       localStorage.setItem('utilisateur', JSON.stringify(response));
+      (response: any) =>{   
+       //localStorage.setItem('utilisateur', JSON.stringify(response));
+       localStorage.setItem('utilisateur', JSON.stringify(this.utilisateur) );
+       localStorage.setItem('typeUtilisateur', this.utilisateur.type.toString());
        this.router.navigate(['/dashboard']);
       },
       (error: HttpErrorResponse) => {

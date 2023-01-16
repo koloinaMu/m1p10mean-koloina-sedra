@@ -4,6 +4,7 @@ import {Utilisateur} from '../objets/Utilisateur';
 import {UtilisateurService} from '../services/utilisateur/utilisateur.service';
 import { HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,18 +24,24 @@ export class LoginComponent implements OnInit {
       id:'',
       immatriculation:'',
       couleur:''
-    }
+    },
+    type:0
   };
+  type:number;
 
   constructor(
     private router: Router,
     private utilisateurService:UtilisateurService,
-    private localStorage:LocalStorageService
+    private localStorage:LocalStorageService,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
    // console.log("UTILISATEUR");
    // console.log(typeof this.utilisateur);
+   this.type=Number(this.route.snapshot.paramMap.get('type'));
+   //console.log(this.route.snapshot.paramMap.get('type'));
+   this.utilisateur.type=this.type;
   }
 
   connecter(){
@@ -45,6 +52,7 @@ export class LoginComponent implements OnInit {
        if(response!='null'){
          this.utilisateur.mdp='';
          localStorage.setItem('utilisateur', (response));
+         localStorage.setItem('typeUtilisateur',this.type.toString());
          this.router.navigate(['/dashboard']);
        }       
       },

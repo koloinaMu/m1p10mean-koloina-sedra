@@ -19,6 +19,11 @@ const routes: Routes =[
   },
   {
     path: 'connexion',
+    redirectTo: 'connexion/0',
+    pathMatch: 'full',
+  },
+  {
+    path: 'connexion/:type',
     component: LoginComponent,
     pathMatch: 'full',
   }, {

@@ -7,4 +7,5 @@ export interface Utilisateur{
 	mail: string;
 	mdp: string;
 	voiture: Voiture;
+	type:number;
 }

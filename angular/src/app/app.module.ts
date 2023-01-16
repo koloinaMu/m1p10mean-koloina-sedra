@@ -15,6 +15,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { InscriptionComponent } from './inscription/inscription.component';
 import { LoginComponent } from './login/login.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 //import { UtilisateurService } from './services/utilisateur/utilisateur.service';
 
 @NgModule({
@@ -33,7 +34,8 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
     AppComponent,
     AdminLayoutComponent,
     InscriptionComponent,
-    LoginComponent
+    LoginComponent,
+    UtilisateursComponent
 
   ],
   providers: [

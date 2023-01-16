@@ -19,74 +19,80 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get('/',function (req,res) {
 	console.log("let's see");
-	//var utilisateur=new Utilisateur("kolo","kolo");
 	res.send("let's see");
 });
 
 app.post('/inscription',jsonParser,function (req,res) {
-//	var utilisateur=new Utilisateur("kolo","kolo");
 	var utilisateur=req.body;
-	//var reponse=Utilisateur.insert(utilisateur);
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  utilisateur.mdp=md5(utilisateur.mdp);
-	  dbo.collection("SuperAdmin").insertOne(utilisateur, function(err, ress) {
+	  dbo.collection("Utilisateur").insertOne(utilisateur, function(err, ress) {
 	    if (err) throw err;
-	    //console.log(ress);
 	    var o_id = new mongo.ObjectId(ress.insertedId.toString());
-	    	//console.log(ress.insertedId.toString());
-	    	//console.log(JSON.stringify(ress.insertedId.id));
 	    var query={mail:  utilisateur.mail,mdp:utilisateur.mdp};
-	    dbo.collection("SuperAdmin").findOne(query,function (err,resFind) {	    	
+	    dbo.collection("Utilisateur").findOne(query,function (err,resFind) {	    	
 		    if (err){
 		    	res.send(null);
 		    } 
-		    console.log(query);
-	    	console.log(resFind);
 	    	res.send(JSON.stringify(resFind));
 	    });	  
 	    db.close();
-	    //console.log("1 document inserted");
 	    reponse=utilisateur;
-	    //res.send("okey");
 	  });
 	}); 
-	//res.send(reponse);
 });
 
 app.post('/connexion',jsonParser, function (req,res) {
-//	var utilisateur=new Utilisateur("kolo","kolo");
 	var utilisateur=req.body;
-	//var reponse= await Utilisateur.connect(utilisateur);
-	//console.log(reponse);
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
-	  //console.log(utilisateur);
 	  var query={mail:utilisateur.mail,mdp:md5(utilisateur.mdp)};
-	  reponse= dbo.collection("SuperAdmin").findOne(query,  function(err, ress) {
+	  var table="Utilisateur";
+	  if(utilisateur.type==1){
+	  	table="SuperAdmin";
+	  }
+	  console.log(table);
+	  reponse= dbo.collection(table).findOne(query,  function(err, ress) {
 	    if (err){
 	    	res.send(null);
-	    	//return null;
-	    	//throw err;
 	    } 
 	    db.close();
 	    res.send(JSON.stringify(ress));
-	    //res.send((ress));
-	    //return JSON.stringify(ress);
 	  });
 	}); 
-	//res.send(reponse);
+});
+
+app.post('/update',jsonParser, function (req,res) {
+	var utilisateur=req.body;
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mongomean");
+	  var myquery = { _id: new mongo.ObjectId(utilisateur._id) };
+	  //console.log(utilisateur._id);
+	  var newvalues = { $set: {type: utilisateur.type } };
+	  dbo.collection("Utilisateur").updateOne(myquery, newvalues, function(err, ress) {
+	    if (err) throw err;
+	   // console.log(ress);
+	    db.close();
+	    res.send("okey");
+	  });
+	}); 
+});
+
+app.get('/utilisateurs',function(req,res) {
+	MongoClient.connect(url,function (err,db) {
+		if(err) throw err;
+		var dbo=db.db("mongomean");
+		dbo.collection("Utilisateur").find({}).toArray(function (err,ress) {
+			db.close();
+			res.send(ress);
+		})
+	})
 })
 
-/*
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-*/
 app.listen(3000,function () {
 	console.log("start app");
 });

@@ -21,6 +21,19 @@
         </div>
       </div>
       <div class="row" >
+        <div class="col-md-6 pr-1">
+          <a href="/connexion/1" >
+            Se connecter en tant <div *ngIf="type==1 else elseBlock" >qu'utilisateur</div>
+            <ng-template #elseBlock>que super administrateur</ng-template>
+          </a>          
+        </div>
+        <div class="col-md-6 pr-1">
+          <a href="/inscription" >
+            S'inscrire
+          </a>          
+        </div>
+      </div>
+      <div class="row" >
         <div class="col-md-6 pr-1" >
           <button type="submit" class="btn btn-light">Se connecter</button>
         </div>
