@@ -91,7 +91,42 @@ app.get('/utilisateurs',function(req,res) {
 			res.send(ress);
 		})
 	})
-})
+});
+
+app.post('/depot-voiture',jsonParser,function (req,res) {
+	var depot=req.body;
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mongomean");
+	  var date=new Date();
+	  depot.dateDepot=date;
+	  dbo.collection("DepotVoiture").insertOne(depot, function(err, ress) {
+	    if (err) throw err;
+	    var o_id = new mongo.ObjectId(ress.insertedId.toString());
+	    var query={utilisateur:  depot.utilisateur,voiture:depot.voiture,dateDepot:date};
+	    dbo.collection("DepotVoiture").findOne(query,function (err,resFind) {	    	
+		    if (err){
+		    	res.send(null);
+		    } 
+	    	res.send(JSON.stringify(resFind));
+	    });	  
+	    db.close();
+	  });
+	}); 
+});
+
+app.post('/reparations-courantes',jsonParser,function(req,res) {
+	var utilisateur=req.body;
+	MongoClient.connect(url,function (err,db) {
+		if(err) throw err;
+		var dbo=db.db("mongomean");
+		var query={ utilisateur:utilisateur, depotSortie:null};
+		dbo.collection("DepotVoiture").find(query).toArray(function (err,ress) {
+			db.close();
+			res.send(ress);
+		})
+	})
+});
 
 app.listen(3000,function () {
 	console.log("start app");

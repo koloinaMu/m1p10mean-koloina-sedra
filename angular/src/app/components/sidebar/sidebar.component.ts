@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 
 declare interface RouteInfo {
     path: string;
@@ -19,6 +20,17 @@ export const ROUTES: RouteInfo[] = [
 
 ];
 
+export const routesSuperAdmin: RouteInfo[] = [
+    { path: '/utilisateurs', title: 'Utilisateurs',  icon: 'users_single-02', class: '' }
+    
+];
+
+export const routesClient: RouteInfo[] = [
+    { path: '/depot-voiture', title: 'Déposer ma voiture',  icon: 'ui-2_settings-90', class: '' },
+    { path: '/reparations-courantes', title: 'Mes réparations',  icon: 'ui-2_settings-90', class: '' }
+    
+];
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -27,10 +39,18 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(
+    private localStorage:LocalStorageService
+  ) { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    //this.menuItems = ROUTES.filter(menuItem => menuItem);
+    var type=(Number)(localStorage.getItem('typeUtilisateur'));
+    if(type==0){
+      this.menuItems = routesClient.filter(menuItem => menuItem);
+    }else if(type==1){
+      this.menuItems = routesSuperAdmin.filter(menuItem => menuItem);
+    }
   }
   isMobileMenu() {
       if ( window.innerWidth > 991) {

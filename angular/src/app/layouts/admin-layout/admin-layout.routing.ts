@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { UtilisateursComponent } from '../../utilisateurs/utilisateurs.component';
+import { DepotVoitureComponent } from '../../depot-voiture/depot-voiture.component';
+import { ReparationsCourantesComponent } from '../../reparations-courantes/reparations-courantes.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
@@ -12,6 +14,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'utilisateurs',      component: UtilisateursComponent },
+    { path: 'depot-voiture',      component: DepotVoitureComponent },
+    { path: 'reparations-courantes',      component: ReparationsCourantesComponent },
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },

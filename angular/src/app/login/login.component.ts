@@ -48,12 +48,20 @@ export class LoginComponent implements OnInit {
     this.utilisateurService.connecter(this.utilisateur).subscribe(
       (response: any) =>{
        // console.log("REUSSI");
-       console.log(response);
+       //console.log(response);
        if(response!='null'){
          this.utilisateur.mdp='';
          localStorage.setItem('utilisateur', (response));
          localStorage.setItem('typeUtilisateur',this.type.toString());
-         this.router.navigate(['/dashboard']);
+         if(this.type==0){
+         //console.log("depot");
+          this.router.navigate(['/depot-voiture']);
+         }else if(this.type==1){
+          this.router.navigate(['/utilisateurs']);
+         }else{
+
+         }
+         //this.router.navigate(['/inscription']);
        }       
       },
       (error: HttpErrorResponse) => {

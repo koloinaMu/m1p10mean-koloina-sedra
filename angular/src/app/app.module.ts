@@ -16,6 +16,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { LoginComponent } from './login/login.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { DepotVoitureComponent } from './depot-voiture/depot-voiture.component';
+import { ReparationsCourantesComponent } from './reparations-courantes/reparations-courantes.component';
 //import { UtilisateurService } from './services/utilisateur/utilisateur.service';
 
 @NgModule({
@@ -35,7 +37,9 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
     AdminLayoutComponent,
     InscriptionComponent,
     LoginComponent,
-    UtilisateursComponent
+    UtilisateursComponent,
+    DepotVoitureComponent,
+    ReparationsCourantesComponent
 
   ],
   providers: [
