@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "63c41c83da4fb027ae45cac7"
+  },
+  "id": "",
+  "nom": "admin",
+  "prenom": "admin",
+  "mail": "superAdmin@gmail.com",
+  "mdp": "83eebac535d14f791f6ee4dbefe689dc",
+  "voiture": {
+    "id": "",
+    "immatriculation": "",
+    "couleur": ""
+  }
+}]

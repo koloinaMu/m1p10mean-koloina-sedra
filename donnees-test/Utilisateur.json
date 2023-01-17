@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "63c501aeb12c42b0365d20fa"
+  },
+  "id": "",
+  "nom": "kolo",
+  "prenom": "kolo",
+  "mail": "kolo1@gmail.com",
+  "mdp": "8a2bc6f29f421af1f4094296ae17f244",
+  "voiture": {
+    "id": "",
+    "immatriculation": "2345TAB",
+    "couleur": "Blanc"
+  },
+  "type": 0
+}]
