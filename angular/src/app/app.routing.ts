@@ -7,6 +7,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { InscriptionComponent } from './inscription/inscription.component';
 import { LoginComponent } from './login/login.component';
 
+import {AuthentificationGuard} from './authentification/authentification.guard';
+
 const routes: Routes =[
   {
     path: '',
@@ -29,6 +31,7 @@ const routes: Routes =[
   }, {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [AuthentificationGuard],
     children: [
         {
       path: '',

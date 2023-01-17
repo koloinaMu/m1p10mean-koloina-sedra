@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
+import { ROUTES,routesClient,routesSuperAdmin } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import Chart from 'chart.js';
@@ -24,7 +24,13 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
+      //this.listTitles = ROUTES.filter(listTitle => listTitle);
+      var typeUtilisater=(Number)(localStorage.getItem("typeUtilisateur"));
+      if(typeUtilisater==0){
+        this.listTitles = routesClient.filter(listTitle => listTitle);
+      }else if(typeUtilisater==1){
+        this.listTitles = routesSuperAdmin.filter(listTitle => listTitle);
+      }
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -144,12 +150,16 @@ export class NavbarComponent implements OnInit {
           titlee = titlee.slice( 2 );
       }
       titlee = titlee.split('/').pop();
+      //console.log(titlee);
+      var part1=titlee.charAt(0).toUpperCase();
+      var part2=titlee.slice(1);
+      titlee=part1+part2;
 
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
+      return titlee;
     }
 }

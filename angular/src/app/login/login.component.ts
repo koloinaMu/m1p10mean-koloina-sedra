@@ -50,11 +50,15 @@ export class LoginComponent implements OnInit {
        // console.log("REUSSI");
        //console.log(response);
        if(response!='null'){
+        var user=JSON.parse(response);
+        //console.log(user);
          this.utilisateur.mdp='';
          localStorage.setItem('utilisateur', (response));
          localStorage.setItem('typeUtilisateur',this.type.toString());
          if(this.type==0){
          //console.log("depot");
+          //localStorage.setItem('typeUtilisateur',this.type.toString());
+         localStorage.setItem('typeUtilisateur',user.type.toString());
           this.router.navigate(['/depot-voiture']);
          }else if(this.type==1){
           this.router.navigate(['/utilisateurs']);
