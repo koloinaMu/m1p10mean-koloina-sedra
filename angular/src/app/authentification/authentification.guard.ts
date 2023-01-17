@@ -20,9 +20,9 @@ export class AuthentificationGuard implements CanActivate {
     //return true;
     var user=localStorage.getItem("utilisateur");
     var url=state.url;
-    const routesSuperAdmin=["/utilisateurs"];
+    const routesSuperAdmin=["/utilisateurs","/recherche"];
     const routesClient=["/depot-voiture","/reparations-courantes","/icons"];
-    const routesAtelier=[];
+    const routesAtelier=["/recherche"];
     if(user){
       var type=(Number)(localStorage.getItem("typeUtilisateur"));  
       //console.log(type) ;
@@ -32,7 +32,7 @@ export class AuthentificationGuard implements CanActivate {
         return true;
       }else if(type==1 && routesSuperAdmin.includes(url)){
         return true;
-      }else if(type==2 && routesSuperAdmin.includes(url)){
+      }else if(type==2 && routesAtelier.includes(url)){
         return true;
       }else{
         this.router.navigate(['/connexion']);

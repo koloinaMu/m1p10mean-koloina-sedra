@@ -169,4 +169,8 @@ export class NavbarComponent implements OnInit {
       localStorage.removeItem("typeUtilisateur");
       this.router.navigate(['/connexion']);
     }
+
+    rechercher(){
+      this.router.navigate(['/recherche']);
+    }
 }

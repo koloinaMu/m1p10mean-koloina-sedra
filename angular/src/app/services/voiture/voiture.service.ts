@@ -20,4 +20,9 @@ export class VoitureService {
     return this.http.post(baseUrl+'reparations-courantes',utilisateur,{responseType:'json'});
   }
 
+  rechercherDepotVoiture(aPropos) {
+   // console.log(utilisateur);
+    return this.http.post(baseUrl+'recherche',aPropos,{responseType:'json'});
+  }
+
 }

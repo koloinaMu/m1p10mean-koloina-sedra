@@ -54,7 +54,7 @@ app.post('/connexion',jsonParser, function (req,res) {
 	  if(utilisateur.type==1){
 	  	table="SuperAdmin";
 	  }
-	  console.log(table);
+	 // console.log(table);
 	  reponse= dbo.collection(table).findOne(query,  function(err, ress) {
 	    if (err){
 	    	res.send(null);
@@ -122,6 +122,30 @@ app.post('/reparations-courantes',jsonParser,function(req,res) {
 		var dbo=db.db("mongomean");
 		var query={ utilisateur:utilisateur, depotSortie:null};
 		dbo.collection("DepotVoiture").find(query).toArray(function (err,ress) {
+			db.close();
+			res.send(ress);
+		})
+	})
+});
+
+app.post('/recherche',jsonParser,function(req,res) {
+	var aPropos=req.body;
+	var voiture={};
+	var requete='';	
+	if(aPropos.couleur=="Couleur"){
+		aPropos.couleur="";		
+	}
+	var reqq={
+		$and: [
+		    { 'voiture.immatriculation': { $regex: aPropos.immatriculation, $options: 'i' } },
+		    { 'voiture.couleur': { $regex: aPropos.couleur, $options: 'i' } }
+		]
+	};
+	MongoClient.connect(url,function (err,db) {
+		if(err) throw err;
+		var dbo=db.db("mongomean");
+		console.log(reqq);
+		dbo.collection("DepotVoiture").find(reqq).toArray(function (err,ress) {
 			db.close();
 			res.send(ress);
 		})

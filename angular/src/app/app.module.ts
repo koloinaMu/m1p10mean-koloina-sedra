@@ -18,6 +18,7 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { DepotVoitureComponent } from './depot-voiture/depot-voiture.component';
 import { ReparationsCourantesComponent } from './reparations-courantes/reparations-courantes.component';
+import { RechercheComponent } from './recherche/recherche.component';
 //import { UtilisateurService } from './services/utilisateur/utilisateur.service';
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ReparationsCourantesComponent } from './reparations-courantes/reparatio
     LoginComponent,
     UtilisateursComponent,
     DepotVoitureComponent,
-    ReparationsCourantesComponent
+    ReparationsCourantesComponent,
+    RechercheComponent
 
   ],
   providers: [
