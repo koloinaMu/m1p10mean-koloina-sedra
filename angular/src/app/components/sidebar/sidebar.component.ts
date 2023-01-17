@@ -31,6 +31,11 @@ export const routesClient: RouteInfo[] = [
     
 ];
 
+export const routesAtelier: RouteInfo[] = [
+    { path: '/recherche', title: 'Recherche',  icon: 'ui-1_zoom-bold', class: '' }
+    
+];
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -50,6 +55,8 @@ export class SidebarComponent implements OnInit {
       this.menuItems = routesClient.filter(menuItem => menuItem);
     }else if(type==1){
       this.menuItems = routesSuperAdmin.filter(menuItem => menuItem);
+    }else{
+      this.menuItems = routesAtelier.filter(menuItem => menuItem);
     }
   }
   isMobileMenu() {

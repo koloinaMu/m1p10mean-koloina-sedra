@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 import { HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import {VoitureService} from '../services/voiture/voiture.service';
+import { NgbModalRef , NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class ReparationsCourantesComponent implements OnInit {
 
   constructor(
     private localStorage:LocalStorageService,
-    private voitureService:VoitureService
+    private voitureService:VoitureService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,13 @@ export class ReparationsCourantesComponent implements OnInit {
         console.log(error.message);
       }
     );
+  }
+
+  open(content) {   
+    this.modalService.open(content, 
+      { ariaLabelledBy: 'modal-basic-title',windowClass: 'modif' }); 
+    //modalRef.componentInstance.utilModif.mail=mail;
+    //modalRef.componentInstance.utilModif.type=type;
   }
 
 }

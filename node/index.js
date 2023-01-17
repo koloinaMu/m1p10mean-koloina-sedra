@@ -7,6 +7,9 @@ app.use(cors());
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var url = "mongodb://127.0.0.1:27017/";
+const password = ("Kokoloina.2422");
+const uri =
+"mongodb+srv://Koloina:Kokoloina.2422@cluster0.6vrux.mongodb.net/?retryWrites=true&w=majority";
 var md5=require("md5");
 
  
@@ -18,13 +21,29 @@ var MongoClient=mongo.MongoClient;
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get('/',function (req,res) {
-	console.log("let's see");
-	res.send("let's see");
+	//console.log(uri);
+	MongoClient.connect(uri, function(err, db) {
+		console.log("inside connect");
+	  if (err) {
+	  	console.log(err);
+	  	throw err;
+	  }
+	  var dbo = db.db("mongomean");
+	 // console.log(table);
+	   dbo.collection("SuperAdmin").find({}).toArray(  function(err, ress) {
+	    if (err){
+	    	res.send(null);
+	    } 
+	    db.close();
+	    res.send((ress));
+	  });
+	}); 
+	//res.send("let's see");
 });
 
 app.post('/inscription',jsonParser,function (req,res) {
 	var utilisateur=req.body;
-	MongoClient.connect(url, function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  utilisateur.mdp=md5(utilisateur.mdp);
@@ -46,7 +65,7 @@ app.post('/inscription',jsonParser,function (req,res) {
 
 app.post('/connexion',jsonParser, function (req,res) {
 	var utilisateur=req.body;
-	MongoClient.connect(url, function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  var query={mail:utilisateur.mail,mdp:md5(utilisateur.mdp)};
@@ -67,7 +86,7 @@ app.post('/connexion',jsonParser, function (req,res) {
 
 app.post('/update',jsonParser, function (req,res) {
 	var utilisateur=req.body;
-	MongoClient.connect(url, function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  var myquery = { _id: new mongo.ObjectId(utilisateur._id) };
@@ -83,7 +102,7 @@ app.post('/update',jsonParser, function (req,res) {
 });
 
 app.get('/utilisateurs',function(req,res) {
-	MongoClient.connect(url,function (err,db) {
+	MongoClient.connect(uri,function (err,db) {
 		if(err) throw err;
 		var dbo=db.db("mongomean");
 		dbo.collection("Utilisateur").find({}).toArray(function (err,ress) {
@@ -95,7 +114,7 @@ app.get('/utilisateurs',function(req,res) {
 
 app.post('/depot-voiture',jsonParser,function (req,res) {
 	var depot=req.body;
-	MongoClient.connect(url, function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  var date=new Date();
@@ -117,7 +136,7 @@ app.post('/depot-voiture',jsonParser,function (req,res) {
 
 app.post('/reparations-courantes',jsonParser,function(req,res) {
 	var utilisateur=req.body;
-	MongoClient.connect(url,function (err,db) {
+	MongoClient.connect(uri,function (err,db) {
 		if(err) throw err;
 		var dbo=db.db("mongomean");
 		var query={ utilisateur:utilisateur, depotSortie:null};
@@ -141,15 +160,33 @@ app.post('/recherche',jsonParser,function(req,res) {
 		    { 'voiture.couleur': { $regex: aPropos.couleur, $options: 'i' } }
 		]
 	};
-	MongoClient.connect(url,function (err,db) {
+	MongoClient.connect(uri,function (err,db) {
 		if(err) throw err;
 		var dbo=db.db("mongomean");
-		console.log(reqq);
+		//console.log(reqq);
 		dbo.collection("DepotVoiture").find(reqq).toArray(function (err,ress) {
 			db.close();
 			res.send(ress);
 		})
 	})
+});
+
+app.post('/sortieVoiture',jsonParser, function (req,res) {
+	var depot=req.body;
+	//console.log(depot);
+	MongoClient.connect(uri, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mongomean");
+	  var myquery = { _id: new mongo.ObjectId(depot._id) };
+	  //console.log(utilisateur._id);
+	  var newvalues = { $set: {dateSortie: new Date() } };
+	  dbo.collection("DepotVoiture").updateOne(myquery, newvalues, function(err, ress) {
+	    if (err) throw err;
+	    //console.log(ress);
+	    db.close();
+	    res.send(ress);
+	  });
+	}); 
 });
 
 app.listen(3000,function () {

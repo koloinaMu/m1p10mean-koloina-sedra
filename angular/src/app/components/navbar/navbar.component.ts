@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES,routesClient,routesSuperAdmin } from '../sidebar/sidebar.component';
+import { ROUTES,routesClient,routesSuperAdmin,routesAtelier } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import Chart from 'chart.js';
@@ -30,6 +30,8 @@ export class NavbarComponent implements OnInit {
         this.listTitles = routesClient.filter(listTitle => listTitle);
       }else if(typeUtilisater==1){
         this.listTitles = routesSuperAdmin.filter(listTitle => listTitle);
+      }else if(typeUtilisater==2){
+        this.listTitles = routesAtelier.filter(listTitle => listTitle);
       }
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];

@@ -56,14 +56,17 @@ export class LoginComponent implements OnInit {
          localStorage.setItem('utilisateur', (response));
          localStorage.setItem('typeUtilisateur',this.type.toString());
          if(this.type==0){
-         //console.log("depot");
+          console.log("type 0");
           //localStorage.setItem('typeUtilisateur',this.type.toString());
-         localStorage.setItem('typeUtilisateur',user.type.toString());
-          this.router.navigate(['/depot-voiture']);
+          localStorage.setItem('typeUtilisateur',user.type.toString());
+          if(user.type==0)
+            this.router.navigate(['/depot-voiture']);
+          else
+            this.router.navigate(['/recherche']);            
          }else if(this.type==1){
           this.router.navigate(['/utilisateurs']);
          }else{
-
+          this.router.navigate(['/connexion']);
          }
          //this.router.navigate(['/inscription']);
        }       

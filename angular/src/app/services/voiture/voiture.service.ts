@@ -25,4 +25,9 @@ export class VoitureService {
     return this.http.post(baseUrl+'recherche',aPropos,{responseType:'json'});
   }
 
+  sortieVoiture(aPropos) {
+   // console.log(utilisateur);
+    return this.http.post(baseUrl+'sortieVoiture',aPropos,{responseType:'json'});
+  }
+
 }
