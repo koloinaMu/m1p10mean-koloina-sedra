@@ -21,7 +21,7 @@ export class AuthentificationGuard implements CanActivate {
     var user=localStorage.getItem("utilisateur");
     var url=state.url;
     const routesSuperAdmin=["/utilisateurs"];
-    const routesClient=["/depot-voiture","/reparations-courantes"];
+    const routesClient=["/depot-voiture","/reparations-courantes","/icons"];
     const routesAtelier=[];
     if(user){
       var type=(Number)(localStorage.getItem("typeUtilisateur"));  

@@ -162,4 +162,11 @@ export class NavbarComponent implements OnInit {
       }
       return titlee;
     }
+
+    deconnecter(){
+      console.log("dexonnexion");
+      localStorage.removeItem("utilisateur");
+      localStorage.removeItem("typeUtilisateur");
+      this.router.navigate(['/connexion']);
+    }
 }
