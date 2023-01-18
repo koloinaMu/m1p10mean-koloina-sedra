@@ -47,6 +47,7 @@ app.post('/inscription',jsonParser,function (req,res) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
 	  utilisateur.mdp=md5(utilisateur.mdp);
+	  utilisateur.etat=0;
 	  dbo.collection("Utilisateur").insertOne(utilisateur, function(err, ress) {
 	    if (err) throw err;
 	    var o_id = new mongo.ObjectId(ress.insertedId.toString());
@@ -68,7 +69,7 @@ app.post('/connexion',jsonParser, function (req,res) {
 	MongoClient.connect(uri, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mongomean");
-	  var query={mail:utilisateur.mail,mdp:md5(utilisateur.mdp)};
+	  var query={mail:utilisateur.mail,mdp:md5(utilisateur.mdp),etat:1};
 	  var table="Utilisateur";
 	  if(utilisateur.type==1){
 	  	table="SuperAdmin";
@@ -78,6 +79,7 @@ app.post('/connexion',jsonParser, function (req,res) {
 	    if (err){
 	    	res.send(null);
 	    } 
+	    console.log(ress);
 	    db.close();
 	    res.send(JSON.stringify(ress));
 	  });
@@ -91,7 +93,7 @@ app.post('/update',jsonParser, function (req,res) {
 	  var dbo = db.db("mongomean");
 	  var myquery = { _id: new mongo.ObjectId(utilisateur._id) };
 	  //console.log(utilisateur._id);
-	  var newvalues = { $set: {type: utilisateur.type } };
+	  var newvalues = { $set: {type: utilisateur.type, etat:1 } };
 	  dbo.collection("Utilisateur").updateOne(myquery, newvalues, function(err, ress) {
 	    if (err) throw err;
 	   // console.log(ress);
